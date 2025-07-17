@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: taskManager_db
+    restart: always
+    environment:
+      POSTGRES_DB: taskManager_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - todolist_network
+
+volumes:
+  postgres_data:
+
+networks:
+  todolist_network:
+    driver: bridge
