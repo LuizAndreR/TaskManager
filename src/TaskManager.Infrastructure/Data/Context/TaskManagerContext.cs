@@ -10,7 +10,7 @@ public class TaskManagerContext : DbContext
     {
     }
 
-    public DbSet<Usuario> Uusarios { get; set; }
+    public DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

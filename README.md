@@ -1,4 +1,4 @@
-﻿﻿# ✅ To-DoList API
+﻿## ✅ To-DoList API
 
 A **To-DoList API** é um sistema robusto e escalável para gerenciamento de tarefas, desenvolvido com **.NET 8** e estruturado com os princípios de **Clean Architecture** e **Domain-Driven Design (DDD)**. A aplicação oferece recursos modernos como autenticação JWT, validações avançadas, logs estruturados, testes automatizados e persistência de dados com **PostgreSQL em ambiente Docker**.
 
