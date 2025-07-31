@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentResults;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TaskManager.Domain.Entities;
 using TaskManager.Domain.Interfaces.ITask;
 
-namespace TaskManager.Infrastructure.Data.Repositories.Task;
+namespace TaskManager.Infrastructure.Data.Repositories.TaskR;
 
 public class TaskRepository : ITaskRepository
 {
@@ -42,5 +43,13 @@ public class TaskRepository : ITaskRepository
         await _context.SaveChangesAsync();
         return task;
 
+    }
+
+    public async Task EditTask(TaskE task)
+    {
+        _logger.LogInformation("Editando a tarefa de id: {Id}", task.Id);
+        
+        _context.Tarefas.Update(task);
+        await _context.SaveChangesAsync();
     }
 }

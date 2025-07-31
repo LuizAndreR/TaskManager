@@ -12,7 +12,7 @@ using TaskManager.Domain.Interfaces.ITask;
 using TaskManager.Infrastructure.Auth.Generator;
 using TaskManager.Infrastructure.Data;
 using TaskManager.Infrastructure.Data.Repositories.Auth;
-using TaskManager.Infrastructure.Data.Repositories.Task;
+using TaskManager.Infrastructure.Data.Repositories.TaskR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,12 +77,12 @@ app.UseAuthorization();
 app.MapControllers();
 try
 {
-    Log.Information("Iniciando aplicação ReservaDezoito...");
+    Log.Information("Iniciando aplicaï¿½ï¿½o ReservaDezoito...");
     app.Run();
 }
 catch(Exception ex)
 {
-    Log.Fatal(ex, "A aplicação falhou ao iniciar");
+    Log.Fatal(ex, "A aplicaï¿½ï¿½o falhou ao iniciar");
 }
 finally
 {

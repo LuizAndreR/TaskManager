@@ -13,6 +13,7 @@ public class UseCaseTask : IUseCaseTask
     private readonly ITaskRepository _repository;
     private readonly IMapper _mapper;
     private readonly IValidator<CreateTaskDto> _validator;
+    
     private readonly ILogger<UseCaseTask> _logger;
 
     public UseCaseTask(ITaskRepository repository, IMapper mapper, IValidator<CreateTaskDto> validator, ILogger<UseCaseTask> logger)
@@ -87,9 +88,7 @@ public class UseCaseTask : IUseCaseTask
 
             if (!validatorResult.IsValid)
             {
-                _logger.LogWarning("Validação falhou ao criar tarefa: {Titulo}. Erros: {Erros}",
-                    createDto.Title,
-                    string.Join(", ", validatorResult.Errors.Select(e => e.ErrorMessage)));
+                _logger.LogWarning("Validação falhou ao criar tarefa: {Titulo}. Erros: {Erros}",createDto.Title, string.Join(", ", validatorResult.Errors.Select(e => e.ErrorMessage)));
 
                 var result = Result.Fail<GetTaskDto>("Erro de validação");
 
@@ -119,6 +118,54 @@ public class UseCaseTask : IUseCaseTask
         catch (Exception ex)
         {
             _logger.LogError(ex, "Erro inesperado ao criar uma nova tarefa com título: {Titulo}", createDto.Title);
+            return Result.Fail<GetTaskDto>($"Erro interno inesperado: {ex.Message}");
+        }
+    }
+
+    public async Task<Result<GetTaskDto>> EditTaskAsync(CreateTaskDto editDto, int idTask, int userId)
+    {
+        try
+        {
+            _logger.LogInformation("Iniciando validação para edição da tarefa com ID: {Id} e título: {Titulo}", idTask, editDto.Title);
+
+            var validatorResult = _validator.Validate(editDto);
+
+            if (!validatorResult.IsValid)
+            {
+                _logger.LogWarning("Validação falhou ao editar tarefa com ID: {Id} e título: {Titulo}. Erros: {Erros}", 
+                    idTask, 
+                    editDto.Title, 
+                    string.Join(", ", validatorResult.Errors.Select(e => e.ErrorMessage)));
+
+                var result = Result.Fail<GetTaskDto>("Erro de validação");
+
+                foreach (var erro in validatorResult.Errors)
+                {
+                    result.WithError(erro.ErrorMessage);
+                }
+
+                return result;
+            }
+
+            _logger.LogInformation("Validação concluída com sucesso para tarefa com ID: {Id}", idTask);
+
+            var taskE = _mapper.Map<TaskE>(editDto);
+            taskE.Id = idTask;
+            taskE.UsuarioId = userId;
+
+            _logger.LogInformation("Entidade mapeada para tarefa com ID: {Id}. Iniciando atualização...", idTask);
+
+            await _repository.EditTask(taskE);
+
+            _logger.LogInformation("Tarefa com ID: {Id} atualizada com sucesso no repositório", idTask);
+
+            var taskGet = _mapper.Map<GetTaskDto>(taskE);
+
+            return Result.Ok(taskGet);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro inesperado ao editar a tarefa com ID: {Id}", idTask);
             return Result.Fail<GetTaskDto>($"Erro interno inesperado: {ex.Message}");
         }
     }

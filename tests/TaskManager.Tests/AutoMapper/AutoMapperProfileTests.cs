@@ -3,7 +3,7 @@ using TaskManager.Application.Dtos.Auth;
 using TaskManager.Application.Profiles;
 using TaskManager.Domain.Entities;
 
-namespace ReservaDezoito.Tests.AutoMapper;
+namespace TaskManager.Tests.AutoMapper;
 
 public class AutoMapperProfileTests
 {

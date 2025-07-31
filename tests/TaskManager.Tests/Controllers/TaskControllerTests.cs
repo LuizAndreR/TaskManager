@@ -319,5 +319,139 @@ public class TaskControllerTests
         Assert.Equal(500, statusCode.StatusCode);
         Assert.Equal("Erro inesperado: banco de dados indisponível", statusCode.Value);
     }
+    
+    // Tests EndPont Put
+    
+    [Fact]
+    public async Task EditTask_DeveRetornarOk_QuandoEdicaoForBemSucedida()
+    {
+        var logger = new Mock<ILogger<TaskController>>();
+        var useCaseMock = new Mock<IUseCaseTask>();
+
+        var request = new CreateTaskDto
+        {
+            Title = "Atualizada",
+            Descriptions = "Descrição editada",
+            Priority = "Alta",
+            Status = "Concluída"
+        };
+
+        var retornoEsperado = new GetTaskDto
+        {
+            Id = 10,
+            Title = request.Title,
+            Descriptions = request.Descriptions,
+            Priority = request.Priority,
+            Status = request.Status
+        };
+
+        useCaseMock.Setup(x => x.EditTaskAsync(request, 10, 1))
+            .ReturnsAsync(Result.Ok(retornoEsperado));
+
+        var controller = new TaskController(useCaseMock.Object, logger.Object);
+
+        var context = new DefaultHttpContext();
+        context.User = new ClaimsPrincipal(new ClaimsIdentity(new[] {
+            new Claim(ClaimTypes.NameIdentifier, "1")
+        }));
+        controller.ControllerContext = new ControllerContext { HttpContext = context };
+
+        var result = await controller.EditTask(request, 10);
+
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        var dto = Assert.IsType<GetTaskDto>(okResult.Value);
+        Assert.Equal("Atualizada", dto.Title);
+        Assert.Equal(200, okResult.StatusCode);
+    }
+
+    [Fact]
+    public async Task EditTask_DeveRetornarBadRequest_QuandoHouverErroDeValidacao()
+    {
+        var logger = new Mock<ILogger<TaskController>>();
+        var useCaseMock = new Mock<IUseCaseTask>();
+
+        var request = new CreateTaskDto
+        {
+            Title = "",
+            Descriptions = "Erro de validação",
+            Priority = "Alta",
+            Status = "Aberta"
+        };
+
+        useCaseMock.Setup(x => x.EditTaskAsync(request, 10, 1))
+            .ReturnsAsync(Result.Fail<GetTaskDto>(new Error("validacao: Título obrigatório")));
+
+        var controller = new TaskController(useCaseMock.Object, logger.Object);
+
+        var context = new DefaultHttpContext();
+        context.User = new ClaimsPrincipal(new ClaimsIdentity(new[] {
+            new Claim(ClaimTypes.NameIdentifier, "1")
+        }));
+        controller.ControllerContext = new ControllerContext { HttpContext = context };
+
+        var result = await controller.EditTask(request, 10);
+
+        var badRequest = Assert.IsType<BadRequestObjectResult>(result);
+        var mensagens = Assert.IsAssignableFrom<IEnumerable<string>>(badRequest.Value);
+        Assert.Contains("validacao", mensagens.First());
+        Assert.Equal(400, badRequest.StatusCode);
+    }
+
+    [Fact]
+    public async Task EditTask_DeveRetornarUnauthorized_QuandoUsuarioNaoAutenticado()
+    {
+        var logger = new Mock<ILogger<TaskController>>();
+        var useCaseMock = new Mock<IUseCaseTask>();
+
+        var controller = new TaskController(useCaseMock.Object, logger.Object);
+        controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext() 
+        };
+
+        var request = new CreateTaskDto
+        {
+            Title = "Teste",
+            Descriptions = "Sem token",
+            Priority = "Baixa",
+            Status = "Aberta"
+        };
+
+        var result = await controller.EditTask(request, 1);
+
+        Assert.IsType<UnauthorizedResult>(result);
+    }
+
+    [Fact]
+    public async Task EditTask_DeveRetornarErro500_QuandoErroInesperadoAcontecer()
+    {
+        var logger = new Mock<ILogger<TaskController>>();
+        var useCaseMock = new Mock<IUseCaseTask>();
+
+        var request = new CreateTaskDto
+        {
+            Title = "Erro",
+            Descriptions = "Falha interna",
+            Priority = "Alta",
+            Status = "Aberta"
+        };
+
+        useCaseMock.Setup(x => x.EditTaskAsync(request, 10, 1))
+            .ReturnsAsync(Result.Fail<GetTaskDto>("Erro interno ao editar"));
+
+        var controller = new TaskController(useCaseMock.Object, logger.Object);
+
+        var context = new DefaultHttpContext();
+        context.User = new ClaimsPrincipal(new ClaimsIdentity(new[] {
+            new Claim(ClaimTypes.NameIdentifier, "1")
+        }));
+        controller.ControllerContext = new ControllerContext { HttpContext = context };
+
+        var result = await controller.EditTask(request, 10);
+
+        var objectResult = Assert.IsType<ObjectResult>(result);
+        Assert.Equal(500, objectResult.StatusCode);
+        Assert.Equal("Erro interno ao editar", objectResult.Value);
+    }
 
 }

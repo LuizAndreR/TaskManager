@@ -8,4 +8,5 @@ public interface IUseCaseTask
     public Task<Result<IEnumerable<GetTaskDto>>> BuscaTasksbyIdUserAsync(int userId);
     public Task<Result<GetTaskDto>> BuscaTaskbyIdAsync(int id, int userId);
     public Task<Result<GetTaskDto>> CreateTaskAsync(CreateTaskDto createDto, int userId);
+    public Task<Result<GetTaskDto>> EditTaskAsync(CreateTaskDto editDto, int idTask, int userId);
 }

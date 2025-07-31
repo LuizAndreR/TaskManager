@@ -3,9 +3,9 @@ using TaskManager.Application.Dtos.TaskDto;
 
 namespace TaskManager.Application.Validator.TaskV;
 
-public class TaskValidator : AbstractValidator<CreateTaskDto>
+public class CreateTaskValidator : AbstractValidator<CreateTaskDto>
 {
-    public TaskValidator()
+    public CreateTaskValidator()
     {
         RuleFor(t => t.Title)
             .Cascade(CascadeMode.Stop)

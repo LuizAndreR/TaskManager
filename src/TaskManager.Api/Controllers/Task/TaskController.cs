@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TaskManager.Api.Extensions;
 using TaskManager.Application.Dtos.TaskDto;
 using TaskManager.Application.UseCase.Task;
+using TaskManager.Domain.Entities;
 
 namespace TaskManager.Api.Controllers.Task;
 
@@ -112,11 +113,48 @@ public class TaskController : ControllerBase
 
         if (erro.Contains("validação"))
         {
-            _logger.LogWarning("Falha de validação ao cadastrar nova tarefa {Tarefas^}. Erros: {@Erros}. Código HTTP: 400", request.Title, result.Errors);
+            _logger.LogWarning(
+                "Falha de validação ao cadastrar nova tarefa {Tarefas^}. Erros: {@Erros}. Código HTTP: 400",
+                request.Title, result.Errors);
             return BadRequest(result.Errors.Select(e => e.Message));
         }
 
-        _logger.LogError("Erro inesperado ao cadastrar {Nome}. Mensagem: {Erro}. Código HTTP: 500",request.Title, erro);
+        _logger.LogError("Erro inesperado ao cadastrar {Nome}. Mensagem: {Erro}. Código HTTP: 500", request.Title,
+            erro);
         return StatusCode(500, erro);
     }
+
+    [HttpPut("update/{id}")]
+    public async Task<IActionResult> EditTask([FromBody] CreateTaskDto request, int id)
+    {
+        _logger.LogInformation("Requisição recebida para editar tarefa com ID: {Id} e título: {Titulo}", id, request.Title);
+        
+        var userId = User.GetUserId();
+
+        if (userId.IsFailed)
+        {
+            _logger.LogInformation("Retornando 401 Unauthorized para requisição sem token ou não válido");
+            return Unauthorized();
+        }
+        
+        Result<GetTaskDto> result = await _userCase.EditTaskAsync(request, id, userId.Value);
+
+        if (result.IsSuccess)
+        {
+            _logger.LogInformation("Tarefa com ID: {Id} editada com sucesso. Código HTTP: 200", id);
+            return Ok(result.Value);
+        }
+
+        var erro = result.Errors.First().Message;
+
+        if (erro.Contains("validacao"))
+        {
+            _logger.LogWarning("Falha de validação ao editar tarefa com ID: {Id}. Erros: {@Erros}. Código HTTP: 400", id, result.Errors);
+            return BadRequest(result.Errors.Select(e => e.Message));
+        }
+
+        _logger.LogError("Erro inesperado ao editar tarefa com ID: {Id}. Mensagem: {Erro}. Código HTTP: 500", id, erro);
+        return StatusCode(500, erro);
+    }
+
 }
