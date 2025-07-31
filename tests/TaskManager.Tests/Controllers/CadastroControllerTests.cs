@@ -6,15 +6,15 @@ using TaskManager.Api.Controllers.Auth;
 using TaskManager.Application.Dtos.Auth;
 using TaskManager.Application.UseCase.Auth.Cadastro;
 
-namespace TaskManager.Tests.Controller;
+namespace TaskManager.Tests.Controllers;
 
-public class CadastroControllerTeste
+public class CadastroControllerTests
 {
     private Mock<ICadastroUseCase> _useCase;
     private CadastroController _controller;
     private Mock<ILogger<CadastroController>> _logger;
 
-    public CadastroControllerTeste()
+    public CadastroControllerTests()
     {
         _useCase = new Mock<ICadastroUseCase>();
         _logger = new Mock<ILogger<CadastroController>>();

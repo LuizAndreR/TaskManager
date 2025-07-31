@@ -6,15 +6,15 @@ using TaskManager.Api.Controllers.Auth.Login;
 using TaskManager.Application.Dtos.Auth;
 using TaskManager.Application.UseCase.Auth.Login;
 
-namespace TaskManager.Tests.Controller;
+namespace TaskManager.Tests.Controllers;
 
-public class LoginControllerTest
+public class LoginControllerTests
 {
-    private Mock<ILoginUseCase> _useCase;
-    private LoginController _controller;
-    private Mock<ILogger<LoginController>> _logger;
+    private readonly Mock<ILoginUseCase> _useCase;
+    private readonly LoginController _controller;
+    private readonly Mock<ILogger<LoginController>> _logger;
 
-    public LoginControllerTest()
+    public LoginControllerTests()
     {
         _useCase = new Mock<ILoginUseCase>();
         _logger = new Mock<ILogger<LoginController>>();

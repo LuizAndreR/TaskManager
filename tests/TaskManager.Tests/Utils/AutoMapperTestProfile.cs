@@ -8,6 +8,7 @@ public class AutoMapperTestProfile : Profile
 {
     public AutoMapperTestProfile()
     {
-        CreateMap<CadastroUsuarioRequest, Usuario>();
+        CreateMap<CadastroUsuarioRequest, Usuario>()
+            .ForMember(dest => dest.Tarefas, opt => opt.Ignore());
     }
 }

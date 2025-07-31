@@ -2,7 +2,7 @@
 using TaskManager.Domain.Entities;
 using TaskManager.Infrastructure.Data.Mappings;
 
-namespace TaskManager.Infrastructure.Data.Context;
+namespace TaskManager.Infrastructure.Data;
 
 public class TaskManagerContext : DbContext
 {
@@ -11,6 +11,7 @@ public class TaskManagerContext : DbContext
     }
 
     public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<TaskE> Tarefas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

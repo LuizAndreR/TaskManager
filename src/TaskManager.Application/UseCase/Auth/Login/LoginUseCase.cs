@@ -57,7 +57,7 @@ public class LoginUseCase : ILoginUseCase
                 return Result.Fail("Usuário ou senha inválidos.");
             }
 
-            var token = _tokenService.Generate(request.Email);
+            var token = _tokenService.Generate(usuario.Email, usuario.Id);
 
             _logger.LogInformation("Login realizado com sucesso para {Email}", request.Email);
             return Result.Ok(token);

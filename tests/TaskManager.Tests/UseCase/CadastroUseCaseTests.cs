@@ -63,7 +63,7 @@ public class CadastroUseCaseTests
 
         _repository
             .Setup(r => r.Salve(It.IsAny<Usuario>()))
-            .Returns(Task.CompletedTask);
+            .ReturnsAsync((Usuario u) => u);
 
         var resultado = await _useCase.Execute(request);
 

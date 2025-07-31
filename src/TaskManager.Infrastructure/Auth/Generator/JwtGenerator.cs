@@ -18,7 +18,7 @@ public class JwtGenerator : IJwtGenerator
         _logger = logger;
     }
 
-    public string Generate(string email)
+    public string Generate(string email, int id)
     {
         var key = Encoding.ASCII.GetBytes(_configuration.GetSection("Jwt")["Key"]!);
 
@@ -26,7 +26,7 @@ public class JwtGenerator : IJwtGenerator
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Email, email)
+                new Claim(ClaimTypes.NameIdentifier, id.ToString())
             }),
             Expires = DateTime.UtcNow.AddHours(24),
             SigningCredentials = new SigningCredentials(
@@ -38,7 +38,7 @@ public class JwtGenerator : IJwtGenerator
         var tokenHendler = new JwtSecurityTokenHandler();
         var token = tokenHendler.CreateToken(tokenDescript);
 
-        _logger.LogInformation($"Gerando token para o email {email}");
+        _logger.LogInformation("Gerando token para o email: {Email}", email);
 
         return tokenHendler.WriteToken(token);
     }

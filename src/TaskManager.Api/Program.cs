@@ -1,13 +1,18 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Text;
 using TaskManager.Application.UseCase.Auth.Cadastro;
 using TaskManager.Application.UseCase.Auth.Login;
+using TaskManager.Application.UseCase.Task;
 using TaskManager.Application.Validator.Auth;
 using TaskManager.Domain.Interfaces.Auth;
+using TaskManager.Domain.Interfaces.ITask;
 using TaskManager.Infrastructure.Auth.Generator;
-using TaskManager.Infrastructure.Data.Context;
+using TaskManager.Infrastructure.Data;
 using TaskManager.Infrastructure.Data.Repositories.Auth;
+using TaskManager.Infrastructure.Data.Repositories.Task;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +24,22 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
+var key = builder.Configuration["Jwt:Key"];
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(key!))
+        };
+    });
+
 builder.Services.AddDbContext<TaskManagerContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"),
         x => x.MigrationsAssembly("TaskManager.Infrastructure")));
@@ -28,9 +49,11 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IUseCaseTask, UseCaseTask>();
 builder.Services.AddScoped<ICadastroUseCase, CadastroUseCase>();
 builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<IJwtGenerator, JwtGenerator>();
 builder.Services.AddValidatorsFromAssemblyContaining<CadastroValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<LoginValidator>();
@@ -40,7 +63,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();       
@@ -49,6 +71,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

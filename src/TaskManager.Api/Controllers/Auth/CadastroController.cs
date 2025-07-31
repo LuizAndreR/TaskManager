@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Application.Dtos.Auth;
 using TaskManager.Application.UseCase.Auth.Cadastro;
@@ -19,9 +20,10 @@ public class CadastroController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> CadastroDeUsuario([FromBody] CadastroUsuarioRequest request)
     {
-        _logger.LogInformation("Recebida requisição de cadastro para o e-mail {Email}", request.Email);
+        _logger.LogInformation("Requisição recebida para cadastro do e-mail {Email}", request.Email);
 
         Result<string> result = await _useCase.Execute(request);
         return MapResultHttpResponse(result, request.Email);
@@ -31,7 +33,7 @@ public class CadastroController : ControllerBase
     {
         if (result.IsSuccess)
         {
-            _logger.LogInformation("Token gerado com sucesso para o e-mail {Email}", email);
+            _logger.LogInformation("Token gerado com sucesso para o e-mail {Email}. Código HTTP: 201", email);
             return Created(string.Empty, new { token = result.Value });
         }
 
@@ -39,18 +41,19 @@ public class CadastroController : ControllerBase
 
         if (erro.Contains("Email já cadastrado"))
         {
-            _logger.LogWarning("Conflito: e-mail já cadastrado - {Email}", email);
+            _logger.LogWarning("Conflito: e-mail já cadastrado - {Email}. Código HTTP: 409", email);
             return Conflict();
         }
 
         if (erro.Contains("validação"))
         {
-            _logger.LogWarning("Falha na validação ao cadastrar {Email}. Erros: {@Erros}", email, result.Errors);
+            _logger.LogWarning("Falha de validação ao cadastrar {Email}. Erros: {@Erros}. Código HTTP: 400", email, result.Errors);
             return BadRequest(result.Errors.Select(e => e.Message));
         }
 
-        _logger.LogError("Erro inesperado ao cadastrar {Email}. Mensagem: {Erro}", email, erro);
+        _logger.LogError("Erro inesperado ao cadastrar {Email}. Mensagem: {Erro}. Código HTTP: 500", email, erro);
         return StatusCode(500, erro);
     }
+
 
 }

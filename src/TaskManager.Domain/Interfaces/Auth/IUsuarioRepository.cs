@@ -6,5 +6,5 @@ public interface IUsuarioRepository
 {
     public Task<Usuario?> BuscaUsuario(string email);
     public Task<bool> EmailExiste(string email);
-    public Task Salve(Usuario usuario);
+    public Task<Usuario> Salve(Usuario usuario);
 }
