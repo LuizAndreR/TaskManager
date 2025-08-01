@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignorar pasta de cobertura de testes
+tests/TestCoverage/
+
+# Ignorar pasta de script de teste
+tests/scripts/
