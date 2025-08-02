@@ -30,7 +30,9 @@ public class TaskControllerTests
 
         return controller;
     }
-
+    
+    // Testes do EndPoint getall
+    
     [Fact]
     public async Task GetAll_DeveRetornarOk_QuandoTarefasEncontradas()
     {
@@ -67,6 +69,41 @@ public class TaskControllerTests
         Assert.Equal(404, notFound.StatusCode);
     }
     
+    [Fact]
+    public async Task GetAll_DeveRetornarInternalServerError_QuandoErroInesperado()
+    {
+        var serviceMock = new Mock<ITaskService>();
+    
+        serviceMock
+            .Setup(s => s.GetAllAsync(It.IsAny<int>()))
+            .ReturnsAsync(Result.Fail<IEnumerable<GetTaskDto>>("Erro inesperado no banco de dados"));
+    
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.GetAll();
+        
+        var objectResult = Assert.IsType<ObjectResult>(resultado);
+        Assert.Equal(500, objectResult.StatusCode);
+
+        var jsonString = System.Text.Json.JsonSerializer.Serialize(objectResult.Value);
+        Assert.Contains("Erro interno inesperado ao buscar tarefas.", jsonString);
+
+    }
+
+    [Fact]
+    public async Task GetAll_DeveRetornarUnauthorized_QuandoUsuarioNaoAutenticado()
+    {
+        var userIdResult = Result.Fail<int>("Usuário não autenticado");
+        var serviceMock = new Mock<ITaskService>();
+
+        var controller = CriarControllerComUsuario(userIdResult, serviceMock);
+
+        var resultado = await controller.GetAll();
+
+        var unauthorizedResult = Assert.IsType<UnauthorizedResult>(resultado);
+        Assert.Equal(401, unauthorizedResult.StatusCode);
+    }
+    
     // Teste EndPoint getid
     
     [Fact]
@@ -97,6 +134,42 @@ public class TaskControllerTests
         Assert.Equal(404, notFound.StatusCode);
     }
 
+    [Fact]
+    public async Task GetId_DeveRetornarInternalServerError_QuandoErroInesperado()
+    {
+        var serviceMock = new Mock<ITaskService>();
+
+        serviceMock
+            .Setup(s => s.GetByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+            .ReturnsAsync(Result.Fail<GetTaskDto>("Erro inesperado no banco de dados"));
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.GetId(1);
+
+        var objectResult = Assert.IsType<ObjectResult>(resultado);
+        Assert.Equal(500, objectResult.StatusCode);
+
+        var jsonString = System.Text.Json.JsonSerializer.Serialize(objectResult.Value);
+        Assert.Contains("Erro interno inesperado ao buscar tarefas.", jsonString);
+    }
+
+    [Fact]
+    public async Task GetId_DeveRetornarUnauthorized_QuandoUsuarioNaoAutenticado()
+    {
+        var userIdResult = Result.Fail<int>("Usuário não autenticado");
+        var serviceMock = new Mock<ITaskService>();
+
+        var controller = CriarControllerComUsuario(userIdResult, serviceMock);
+
+        var resultado = await controller.GetId(1);
+
+        var unauthorizedResult = Assert.IsType<UnauthorizedResult>(resultado);
+        Assert.Equal(401, unauthorizedResult.StatusCode);
+    }
+
+    // Tests para EndPoint create  
+    
     [Fact]
     public async Task Create_DeveRetornarCreated_QuandoSucesso()
     {
@@ -131,6 +204,44 @@ public class TaskControllerTests
     }
 
     [Fact]
+    public async Task Create_DeveRetornarInternalServerError_QuandoErroInesperado()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var createDto = new CreateTaskDto { Title = "Teste", Priority = "Media", Status = "EmAndamento" };
+
+        serviceMock
+            .Setup(s => s.CreateAsync(It.IsAny<CreateTaskDto>(), It.IsAny<int>()))
+            .ReturnsAsync(Result.Fail<GetTaskDto>("Erro inesperado no banco de dados"));
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.Create(createDto);
+
+        var objectResult = Assert.IsType<ObjectResult>(resultado);
+        Assert.Equal(500, objectResult.StatusCode);
+
+        var jsonString = System.Text.Json.JsonSerializer.Serialize(objectResult.Value);
+        Assert.Contains("Erro inesperado no banco de dados", jsonString);
+    }
+
+    [Fact]
+    public async Task Create_DeveRetornarUnauthorized_QuandoUsuarioNaoAutenticado()
+    {
+        var userIdResult = Result.Fail<int>("Usuário não autenticado");
+        var serviceMock = new Mock<ITaskService>();
+        var createDto = new CreateTaskDto { Title = "Teste", Priority = "Media", Status = "EmAndamento" };
+
+        var controller = CriarControllerComUsuario(userIdResult, serviceMock);
+
+        var resultado = await controller.Create(createDto);
+
+        var unauthorizedResult = Assert.IsType<UnauthorizedResult>(resultado);
+        Assert.Equal(401, unauthorizedResult.StatusCode);
+    }
+    
+    // Tests para EndPoint updata    
+    
+    [Fact]
     public async Task EditTask_DeveRetornarOk_QuandoAtualizacaoForBemSucedida()
     {
         var serviceMock = new Mock<ITaskService>();
@@ -162,4 +273,41 @@ public class TaskControllerTests
         var badRequest = Assert.IsType<BadRequestObjectResult>(resultado);
         Assert.Equal(400, badRequest.StatusCode);
     }
+    
+    [Fact]
+    public async Task EditTask_DeveRetornarInternalServerError_QuandoErroInesperado()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var editDto = new CreateTaskDto { Title = "Teste Atualizado", Priority = "Media", Status = "EmAndamento" };
+
+        serviceMock
+            .Setup(s => s.UpdateAsync(It.IsAny<CreateTaskDto>(), It.IsAny<int>(), It.IsAny<int>()))
+            .ReturnsAsync(Result.Fail<GetTaskDto>("Erro inesperado no banco de dados"));
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.EditTask(editDto, 1);
+
+        var objectResult = Assert.IsType<ObjectResult>(resultado);
+        Assert.Equal(500, objectResult.StatusCode);
+
+        var jsonString = System.Text.Json.JsonSerializer.Serialize(objectResult.Value);
+        Assert.Contains("Erro inesperado no banco de dados", jsonString);
+    }
+
+    [Fact]
+    public async Task EditTask_DeveRetornarUnauthorized_QuandoUsuarioNaoAutenticado()
+    {
+        var userIdResult = Result.Fail<int>("Usuário não autenticado");
+        var serviceMock = new Mock<ITaskService>();
+        var editDto = new CreateTaskDto { Title = "Teste Atualizado", Priority = "Media", Status = "EmAndamento" };
+
+        var controller = CriarControllerComUsuario(userIdResult, serviceMock);
+
+        var resultado = await controller.EditTask(editDto, 1);
+
+        var unauthorizedResult = Assert.IsType<UnauthorizedResult>(resultado);
+        Assert.Equal(401, unauthorizedResult.StatusCode);
+    }
+
 }
