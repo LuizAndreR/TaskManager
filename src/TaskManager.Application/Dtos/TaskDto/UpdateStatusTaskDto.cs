@@ -1,6 +1,6 @@
 namespace TaskManager.Application.Dtos.TaskDto;
 
-public class UpdateStatsTaskDto
+public class UpdateStatusTaskDto
 {
     public required string Status { get; set; }
 }

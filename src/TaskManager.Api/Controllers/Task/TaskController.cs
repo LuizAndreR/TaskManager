@@ -155,4 +155,11 @@ public class TaskController : ControllerBase
         _logger.LogError("Erro inesperado ao editar tarefa com ID: {Id}. Mensagem: {Erro}. Código HTTP: 500", id, erro);
         return StatusCode(500, erro);
     }
+
+    [HttpPatch("updatestats/{id}")]
+    public async Task<IActionResult> UpdateStats([FromBody] UpdateStatusTaskDto request, int id)
+    {
+        
+    }
+    
 }
