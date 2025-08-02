@@ -1,5 +1,4 @@
-﻿using FluentResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TaskManager.Domain.Entities;
 using TaskManager.Domain.Interfaces.ITask;

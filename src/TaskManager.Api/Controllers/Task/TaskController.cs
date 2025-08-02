@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Api.Extensions;
 using TaskManager.Application.Dtos.TaskDto;
-using TaskManager.Application.UseCase.Task;
-using TaskManager.Domain.Entities;
+using TaskManager.Application.Services;
 
 namespace TaskManager.Api.Controllers.Task;
 
@@ -13,12 +12,12 @@ namespace TaskManager.Api.Controllers.Task;
 [Authorize]
 public class TaskController : ControllerBase
 {
-    private readonly IUseCaseTask _userCase;
+    private readonly ITaskService _service;
     private readonly ILogger<TaskController> _logger;
 
-    public TaskController(IUseCaseTask userCase, ILogger<TaskController> logger)
+    public TaskController(ITaskService service, ILogger<TaskController> logger)
     {
-        _userCase = userCase;
+        _service = service;
         _logger = logger;
     }
 
@@ -35,7 +34,7 @@ public class TaskController : ControllerBase
             return Unauthorized();
         }
 
-        var result = await _userCase.BuscaTasksbyIdUserAsync(userId.Value);
+        var result = await _service.GetAllAsync(userId.Value);
 
         if (result.IsFailed)
         {
@@ -68,7 +67,7 @@ public class TaskController : ControllerBase
             return Unauthorized();
         }
 
-        var result = await _userCase.BuscaTaskbyIdAsync(id, userId.Value);
+        var result = await _service.GetByIdAsync(id, userId.Value);
 
         if (result.IsFailed)
         {
@@ -101,7 +100,7 @@ public class TaskController : ControllerBase
             return Unauthorized();
         }
 
-        Result<GetTaskDto> result = await _userCase.CreateTaskAsync(request, userId.Value);
+        Result<GetTaskDto> result = await _service.CreateAsync(request, userId.Value);
 
         if (result.IsSuccess)
         {
@@ -137,7 +136,7 @@ public class TaskController : ControllerBase
             return Unauthorized();
         }
         
-        Result<GetTaskDto> result = await _userCase.EditTaskAsync(request, id, userId.Value);
+        Result<GetTaskDto> result = await _service.UpdateAsync(request, id, userId.Value);
 
         if (result.IsSuccess)
         {
@@ -156,5 +155,4 @@ public class TaskController : ControllerBase
         _logger.LogError("Erro inesperado ao editar tarefa com ID: {Id}. Mensagem: {Erro}. Código HTTP: 500", id, erro);
         return StatusCode(500, erro);
     }
-
 }
