@@ -156,10 +156,91 @@ public class TaskController : ControllerBase
         return StatusCode(500, erro);
     }
 
-    [HttpPatch("updatestats/{id}")]
-    public async Task<IActionResult> UpdateStats([FromBody] UpdateStatusTaskDto request, int id)
+    [HttpPatch("updatestatus/{id}")]
+    public async Task<IActionResult> UpdateStatus([FromBody] UpdateStatusTaskDto request, int id)
     {
-        
+        _logger.LogInformation("Requisição recebida para editar status da tarefa com ID: {Id}", id);
+
+        var userId = User.GetUserId();
+
+        if (userId.IsFailed)
+        {
+            _logger.LogInformation("Retornando 401 Unauthorized para requisição sem token ou não válido");
+            return Unauthorized();
+        }
+
+        Result result = await _service.UpadteStatusAsync(request, id, userId.Value);
+
+        if (result.IsSuccess)
+        {
+            _logger.LogInformation("Status da tarefa com ID: {Id} atualizado com sucesso. Código HTTP: 200", id);
+            return Ok(new { message = "Status atualizado com sucesso." });
+        }
+
+        var erro = result.Errors.First().Message;
+
+        if (erro.Contains("validacao"))
+        {
+            _logger.LogWarning("Falha de validação ao editar status da tarefa com ID: {Id}. Erros: {@Erros}. Código HTTP: 400", id, result.Errors);
+            return BadRequest(result.Errors.Select(e => e.Message));
+        }
+
+        _logger.LogError("Erro inesperado ao editar status da tarefa com ID: {Id}. Mensagem: {Erro}. Código HTTP: 500", id, erro);
+        return StatusCode(500, erro);
     }
-    
+
+    [HttpPatch("updatepriority/{id}")]
+    public async Task<IActionResult> UpdatePriority([FromBody] UpdatePriorityDto request, int id)
+    {
+        _logger.LogInformation("Requisição recebida para editar prioridade da tarefa com ID: {Id}", id);
+
+        var userId = User.GetUserId();
+
+        if (userId.IsFailed)
+        {
+            _logger.LogInformation("Retornando 401 Unauthorized para requisição sem token ou não válido");
+            return Unauthorized();
+        }
+        Result result = await _service.UpdatePriorityAsync(request, id, userId.Value);
+
+        if (result.IsSuccess)
+        {
+            _logger.LogInformation("Prioridade da tarefa com ID: {Id} atualizada com sucesso. Código HTTP: 200", id);
+            return Ok(new { message = "Prioridade atualizada com sucesso." });
+        }
+
+        var erro = result.Errors.First().Message;
+
+        if (erro.Contains("validacao"))
+        {
+            _logger.LogWarning("Falha de validação ao editar prioridade da tarefa com ID: {Id}. Erros: {@Erros}. Código HTTP: 400", id, result.Errors);
+            return BadRequest(result.Errors.Select(e => e.Message));
+        }
+
+        _logger.LogError("Erro inesperado ao editar prioridade da tarefa com ID: {Id}. Mensagem: {Erro}. Código HTTP: 500", id, erro);
+        return StatusCode(500, erro);
+    }
+
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        _logger.LogInformation("Requisição recebida para deletar tarefa com ID: {Id}", id);
+        var userId = User.GetUserId();
+
+        if (userId.IsFailed)
+        {
+            _logger.LogInformation("Retornando 401 Unauthorized para requisição sem token ou não válido");
+            return Unauthorized();
+        }
+        Result result = await _service.DeleteAsync(id, userId.Value);
+
+        if (result.IsSuccess)
+        {
+            _logger.LogInformation("Tarefa com ID: {Id} deletada com sucesso. Código HTTP: 204", id);
+            return NoContent();
+        }
+
+        _logger.LogError("Erro inesperado ao deletar tarefa com ID: {Id}. Mensagem: {Erro}. Código HTTP: 500", id, result.Errors);
+        return StatusCode(500, result.Errors);
+    }
 }

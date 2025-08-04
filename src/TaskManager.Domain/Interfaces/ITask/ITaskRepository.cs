@@ -8,4 +8,5 @@ public interface ITaskRepository
     public Task<TaskE?> GetId(int id, int userId);
     public Task<TaskE> CreateTask(TaskE task);
     public Task EditTask(TaskE task);
+    public Task DeleteTask(TaskE task, int userId);
 }

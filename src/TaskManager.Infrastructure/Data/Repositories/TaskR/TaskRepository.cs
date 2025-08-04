@@ -51,4 +51,12 @@ public class TaskRepository : ITaskRepository
         _context.Tarefas.Update(task);
         await _context.SaveChangesAsync();
     }
+
+    public async Task DeleteTask(TaskE task, int userId)
+    {
+        _logger.LogInformation("Deletando tarefa com id: {Id} para o usuário com ID {UserId}", task.Id, userId);
+        
+        _context.Remove(task);
+        await _context.SaveChangesAsync();
+    }
 }

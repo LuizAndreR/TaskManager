@@ -3,11 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
+using TaskManager.Application.Services;
 using TaskManager.Application.UseCase.Auth.Cadastro;
 using TaskManager.Application.UseCase.Auth.Login;
 using TaskManager.Application.UseCase.Tasks.Interfaces;
 using TaskManager.Application.UseCase.Tasks.UseCases;
 using TaskManager.Application.Validator.Auth;
+using TaskManager.Application.Validator.TaskV;
 using TaskManager.Domain.Interfaces.Auth;
 using TaskManager.Domain.Interfaces.ITask;
 using TaskManager.Infrastructure.Auth.Generator;
@@ -50,17 +52,30 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<ITaskService, TaskService>();
+
+// UseCases Tasks
 builder.Services.AddScoped<ICreateTaskUseCase, CreateTaskUseCase>();
 builder.Services.AddScoped<IGetAllTasksUseCase, GetAllTasksUseCase>();
 builder.Services.AddScoped<IGetTaskByIdUseCase, GetTaskByIdUseCase>();
 builder.Services.AddScoped<IUpdateTaskUseCase, UpdateTaskUseCase>();
+builder.Services.AddScoped<IUpdateStatusTaskUseCase, UpdateStatusTaskUseCase>();
+builder.Services.AddScoped<IUpdatePriorityUseCase, UpdatePriorityUseCase>();
+builder.Services.AddScoped<IDeleteTaskUseCase, DeleteTaskUseCase>();
+
+// UseCases Auth
 builder.Services.AddScoped<ICadastroUseCase, CadastroUseCase>();
 builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
+
+// Repositories
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<IJwtGenerator, JwtGenerator>();
+
+// Validators
 builder.Services.AddValidatorsFromAssemblyContaining<CadastroValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<LoginValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateStatusValidator>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -81,12 +96,12 @@ app.UseAuthorization();
 app.MapControllers();
 try
 {
-    Log.Information("Iniciando aplica��o ReservaDezoito...");
+    Log.Information("Iniciando aplicação ReservaDezoito...");
     app.Run();
 }
 catch(Exception ex)
 {
-    Log.Fatal(ex, "A aplica��o falhou ao iniciar");
+    Log.Fatal(ex, "A aplicação falhou ao iniciar");
 }
 finally
 {

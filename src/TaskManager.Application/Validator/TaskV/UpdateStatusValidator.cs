@@ -3,9 +3,9 @@ using TaskManager.Application.Dtos.TaskDto;
 
 namespace TaskManager.Application.Validator.TaskV;
 
-public class UpdateSatusValidator : AbstractValidator<UpdateStatusTaskDto>
+public class UpdateStatusValidator : AbstractValidator<UpdateStatusTaskDto>
 {
-    public UpdateSatusValidator()
+    public UpdateStatusValidator()
     {
         RuleFor(t => t.Status)
             .Cascade(CascadeMode.Stop)

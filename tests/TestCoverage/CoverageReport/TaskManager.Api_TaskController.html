@@ -25,7 +25,7 @@
 </tr>
 <tr>
 <th>File(s):</th>
-<td class="overflow-wrap"><a href="#homeluizandreDocumentosProjetosTaskManagersrcTaskManagerApiControllersTaskTaskControllercs" class="navigatetohash">/home/luiz-andre/Documentos/Projetos/TaskManager/src/TaskManager.Api/Controllers/Task/TaskController.cs</a></td>
+<td class="overflow-wrap"><a href="#DProgama&#231;aoProgamaTaskManagersrcTaskManagerApiControllersTaskTaskControllercs" class="navigatetohash">D:\Progama&#231;ao\Progama\TaskManager\src\TaskManager.Api\Controllers\Task\TaskController.cs</a></td>
 </tr>
 </table>
 </div>
@@ -53,7 +53,7 @@
 </tr>
 <tr>
 <th>Total lines:</th>
-<td class="limit-width right" title="158">158</td>
+<td class="limit-width right" title="159">159</td>
 </tr>
 <tr>
 <th>Line coverage:</th>
@@ -105,9 +105,9 @@
 <col class="column105" />
 <col class="column105" />
 </colgroup>
-<thead><tr><th>Method</th><th>Branch coverage <a href="https://en.wikipedia.org/wiki/Code_coverage" target="_blank"><i class="icon-info-circled"></i></a></th><th>Crap Score <a href="https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" target="_blank"><i class="icon-info-circled"></i></a></th><th>Cyclomatic complexity <a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank"><i class="icon-info-circled"></i></a></th><th>Line coverage <a href="https://en.wikipedia.org/wiki/Code_coverage" target="_blank"><i class="icon-info-circled"></i></a></th></tr></thead>
+<thead><tr><th>Method</th><th>Branch coverage <a href="https://en.wikipedia.org/wiki/Code_coverage" target="_blank"><i class="icon-info-circled"></i></a></th><th>Cyclomatic complexity <a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank"><i class="icon-info-circled"></i></a></th><th>NPath complexity <a href="https://modess.io/npath-complexity-cyclomatic-complexity-explained" target="_blank"><i class="icon-info-circled"></i></a></th><th>Sequence coverage <a href="https://en.wikipedia.org/wiki/Code_coverage" target="_blank"><i class="icon-info-circled"></i></a></th></tr></thead>
 <tbody>
-<tr><td title=".ctor(TaskManager.Application.Services.ITaskService,Microsoft.Extensions.Logging.ILogger`1&lt;TaskManager.Api.Controllers.Task.TaskController&gt;)"><a href="#file0_line18" class="navigatetohash">.ctor(...)</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
+<tr><td title="System.Void TaskManager.Api.Controllers.Task.TaskController::.ctor(TaskManager.Application.Services.ITaskService,Microsoft.Extensions.Logging.ILogger`1&lt;TaskManager.Api.Controllers.Task.TaskController&gt;)"><a href="#file0_line18" class="navigatetohash">.ctor(...)</a></td><td>100%</td><td>1</td><td>1</td><td>100%</td></tr>
 <tr><td title="GetAll()"><a href="#file0_line26" class="navigatetohash">GetAll()</a></td><td>100%</td><td>6</td><td>6</td><td>100%</td></tr>
 <tr><td title="GetId()"><a href="#file0_line59" class="navigatetohash">GetId()</a></td><td>100%</td><td>6</td><td>6</td><td>100%</td></tr>
 <tr><td title="Create()"><a href="#file0_line92" class="navigatetohash">Create()</a></td><td>100%</td><td>6</td><td>6</td><td>100%</td></tr>
@@ -116,7 +116,7 @@
 </table>
 </div>
 <h1>File(s)</h1>
-<h2 id="homeluizandreDocumentosProjetosTaskManagersrcTaskManagerApiControllersTaskTaskControllercs">/home/luiz-andre/Documentos/Projetos/TaskManager/src/TaskManager.Api/Controllers/Task/TaskController.cs</h2>
+<h2 id="DProgama&#231;aoProgamaTaskManagersrcTaskManagerApiControllersTaskTaskControllercs">D:\Progama&#231;ao\Progama\TaskManager\src\TaskManager.Api\Controllers\Task\TaskController.cs</h2>
 <div class="table-responsive">
 <table class="lineAnalysis">
 <thead><tr><th></th><th>#</th><th>Line</th><th></th><th>Line coverage</th></tr></thead>
@@ -278,11 +278,12 @@
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line155"></a><code>155</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_logger.LogError(&quot;Erro&nbsp;inesperado&nbsp;ao&nbsp;editar&nbsp;tarefa&nbsp;com&nbsp;ID:&nbsp;{Id}.&nbsp;Mensagem:&nbsp;{Erro}.&nbsp;C&#243;digo&nbsp;HTTP:&nbsp;500&quot;,&nbsp;id,&nbsp;erro);</code></td></tr>
 <tr class="coverableline" title="Covered (1 visits)" data-coverage="{'AllTestMethods': {'VC': '1', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">1</td><td class="rightmargin right"><a id="file0_line156"></a><code>156</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;StatusCode(500,&nbsp;erro);</code></td></tr>
 <tr class="coverableline" title="Covered (4 visits)" data-coverage="{'AllTestMethods': {'VC': '4', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">4</td><td class="rightmargin right"><a id="file0_line157"></a><code>157</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
-<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line158"></a><code>158</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line158"></a><code>158</code></td><td></td><td class="lightgray"><code></code></td></tr>
+<tr class="" title="Not coverable" data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><a id="file0_line159"></a><code>159</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
 </tbody>
 </table>
 </div>
-<div class="footer">Generated by: ReportGenerator 5.4.11.0<br />02/08/2025 - 01:10:07<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
+<div class="footer">Generated by: ReportGenerator 5.4.8.0<br />04/08/2025 - 15:37:28<br /><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="https://reportgenerator.io">reportgenerator.io</a></div></div>
 <div class="containerright">
 <div class="containerrightfixed">
 <h1>Methods/Properties</h1>

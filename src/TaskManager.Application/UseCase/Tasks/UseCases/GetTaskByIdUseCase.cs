@@ -11,7 +11,6 @@ public class GetTaskByIdUseCase : IGetTaskByIdUseCase
 {
     private readonly ITaskRepository _repository;
     private readonly IMapper _mapper;
-    
     private readonly ILogger<GetTaskByIdUseCase> _logger;
 
     public GetTaskByIdUseCase(ITaskRepository repository, IMapper mapper, ILogger<GetTaskByIdUseCase> logger)

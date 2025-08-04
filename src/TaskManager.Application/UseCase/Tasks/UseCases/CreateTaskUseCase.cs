@@ -37,12 +37,13 @@ public class CreateTaskUseCase : ICreateTaskUseCase
             {
                 _logger.LogWarning("Validação falhou ao criar tarefa: {Titulo}. Erros: {Erros}",createDto.Title, string.Join(", ", validatorResult.Errors.Select(e => e.ErrorMessage)));
 
-                var result = Result.Fail<GetTaskDto>("Erro de validação");
+                var result = Result.Fail<GetTaskDto>("Erro de validacao");
 
-                foreach (var erro in validatorResult.Errors)
-                {
-                    result.WithError(erro.ErrorMessage);
-                }
+                var errors = validatorResult.Errors
+                    .Select(e => new Error(e.ErrorMessage))
+                    .ToList();
+
+                result.WithErrors(errors);
 
                 return result;
             }
