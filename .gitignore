@@ -363,4 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Ignorar pasta de script de teste
-tests/scripts/
+tests\scripts
