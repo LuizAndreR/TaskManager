@@ -12,6 +12,9 @@ public class TaskServiceTests
     private readonly Mock<IGetAllTasksUseCase> _getAllTasksMock;
     private readonly Mock<IGetTaskByIdUseCase> _getTaskByIdMock;
     private readonly Mock<IUpdateTaskUseCase> _updateTaskMock;
+    private readonly Mock<IUpdateStatusTaskUseCase> _updateStatusTaskMock;
+    private readonly Mock<IUpdatePriorityUseCase> _updatePriorityMock;
+    private readonly Mock<IDeleteTaskUseCase> _deleteTaskMock;
     private readonly TaskService _taskService;
 
     public TaskServiceTests()
@@ -20,12 +23,18 @@ public class TaskServiceTests
         _getAllTasksMock = new Mock<IGetAllTasksUseCase>();
         _getTaskByIdMock = new Mock<IGetTaskByIdUseCase>();
         _updateTaskMock = new Mock<IUpdateTaskUseCase>();
+        _updateStatusTaskMock = new Mock<IUpdateStatusTaskUseCase>();
+        _updatePriorityMock = new Mock<IUpdatePriorityUseCase>();
+        _deleteTaskMock = new Mock<IDeleteTaskUseCase>();
 
         _taskService = new TaskService(
             _createTaskMock.Object,
             _getAllTasksMock.Object,
             _getTaskByIdMock.Object,
-            _updateTaskMock.Object);
+            _updateTaskMock.Object,
+            _updateStatusTaskMock.Object,
+            _updatePriorityMock.Object,
+            _deleteTaskMock.Object);
     }
 
     [Fact]
@@ -83,4 +92,42 @@ public class TaskServiceTests
         Assert.True(result.IsSuccess);
         Assert.Equal("Atualizada", result.Value.Title);
     }
+    
+    [Fact]
+    public async Task UpdateStatusAsync_ShouldReturnOk_WhenSuccessful()
+    {
+        var dto = new UpdateStatusTaskDto { Status = "Pendente" };
+
+        _updateStatusTaskMock.Setup(x => x.UpdateStatusAsync(dto, 1, 1))
+            .ReturnsAsync(Result.Ok());
+
+        var result = await _taskService.UpadteStatusAsync(dto, 1, 1);
+
+        Assert.True(result.IsSuccess);
+    }
+    
+    [Fact]
+    public async Task UpdatePriorityAsync_ShouldReturnOk_WhenSuccessful()
+    {
+        var dto = new UpdatePriorityDto() { Priority = "Alta" };
+
+        _updatePriorityMock.Setup(x => x.UpdatePriorityAsync(dto, 1, 1))
+            .ReturnsAsync(Result.Ok());
+
+        var result = await _taskService.UpdatePriorityAsync(dto, 1, 1);
+
+        Assert.True(result.IsSuccess);
+    }
+    
+    [Fact]
+    public async Task DeleteAsync_ShouldReturnOk_WhenSuccessful()
+    {
+        _deleteTaskMock.Setup(x => x.DeleteTaskAsync(1, 1))
+            .ReturnsAsync(Result.Ok());
+
+        var result = await _taskService.DeleteAsync(1, 1);
+
+        Assert.True(result.IsSuccess);
+    }
+    
 } 

@@ -32,7 +32,7 @@ public class TaskService : ITaskService
         _updatePriority = updatePriority;
         _deleteTask = deleteTask;
     }
-    
+
     public async Task<Result<IEnumerable<GetTaskDto>>> GetAllAsync(int userId) => await _getAllTasks.GetAllTasksAsync(userId);
 
     public async Task<Result<GetTaskDto>> GetByIdAsync(int id, int userId) => await _getTaskById.GetTaskByIdAsync(id, userId);
