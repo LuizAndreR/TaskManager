@@ -7,7 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Entities\Usuario.cs~RF443379.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentResults" Version="4.0.0" />
     <PackageReference Include="Serilog" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FluentResults">
+      <HintPath>..\..\..\..\..\.nuget\packages\fluentresults\4.0.0\lib\net8.0\FluentResults.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

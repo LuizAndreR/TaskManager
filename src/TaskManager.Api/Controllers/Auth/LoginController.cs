@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Application.Dtos.Auth;
 using TaskManager.Application.UseCase.Auth.Login;
@@ -19,6 +20,7 @@ public class LoginController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody]LoginUsuarioRequest request)
     {
         _logger.LogInformation("Recebida requisição de login para {Email}", request.Email);

@@ -111,6 +111,7 @@ public class LoginUseCaseTest
 
         var usuario = new Usuario
         {
+            Id = 2,
             Nome = "teste",
             Email = request.Email,
             SenhaHash = BCrypt.Net.BCrypt.HashPassword(request.Senha)
@@ -119,7 +120,7 @@ public class LoginUseCaseTest
         _repository.Setup(r => r.BuscaUsuario(request.Email))
             .ReturnsAsync(usuario);
 
-        _jwtGenerator.Setup(t => t.Generate(request.Email))
+        _jwtGenerator.Setup(t => t.Generate(usuario.Email, usuario.Id))
             .Returns(tokenEsperado);
 
         var result = await _useCase.Execute(request);

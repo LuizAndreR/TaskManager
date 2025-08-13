@@ -1,17 +1,20 @@
-$ErrorActionPreference = "Stop"
+# Limpar pastas antigas
+Remove-Item -Recurse -Force -ErrorAction SilentlyContinue -Path '.\tests\TestCoverage','.\tests\TestCoverage\TestResults','.\tests\TestCoverage\CoverageReport'
 
-# Clean old coverage results
-Remove-Item -Recurse -Force -ErrorAction SilentlyContinue ".\tests\ReservaDezoito.Tests\TestCoverage", ".\TestResults", ".\CoverageReport"
+# Criar pasta de resultados
+New-Item -ItemType Directory -Path '.\tests\TestCoverage\TestResults' -Force | Out-Null
 
-New-Item -ItemType Directory -Path ".\tests\ReservaDezoito.Tests\TestCoverage"
+# Criar pasta de relatório
+New-Item -ItemType Directory -Path '.\tests\TestCoverage\CoverageReport' -Force | Out-Null
 
-# Run tests with coverage
-dotnet test --collect:"XPlat Code Coverage" --results-directory ".\tests\ReservaDezoito.Tests\TestCoverage\TestResults"
+# Executar testes e coletar cobertura
+dotnet test $testProjectPath ` --settings coverlet.runsettings.xml ` --collect:"XPlat Code Coverage" ` --results-directory '.\tests\TestCoverage\TestResults'
 
-# Find coverage file
-$coverageFile = Get-ChildItem -Path ".\tests\ReservaDezoito.Tests\TestCoverage\TestResults" -Recurse -Filter "coverage.cobertura.xml" | Select-Object -First 1
+# Localizar arquivo de cobertura
+$coverageFile = Get-ChildItem -Path '.\tests\TestCoverage\TestResults' -Recurse -Include 'coverage.opencover.xml','coverage.cobertura.xml' | Select-Object -First 1
 
-# Generate HTML report
-reportgenerator -reports:$coverageFile.FullName -targetdir:".\tests\ReservaDezoito.Tests\TestCoverage\CoverageReport" -reporttypes:Html
+# Gerar relatório HTML
+reportgenerator -reports:$coverageFile.FullName -targetdir:'.\tests\TestCoverage\CoverageReport' -reporttypes:Html
 
-Start-Process ".\tests\ReservaDezoito.Tests\TestCoverage\CoverageReport\index.html"
+# Abrir o index.html gerado
+Invoke-Item '.\tests\TestCoverage\CoverageReport\index.htm'
