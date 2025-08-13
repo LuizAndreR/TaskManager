@@ -213,11 +213,10 @@ var assemblies = [
   {
     "name": "TaskManager.Api",
     "classes": [
-      { "name": "Program", "rp": "TaskManager.Api_Program.html", "cl": 0, "ucl": 67, "cal": 67, "tl": 110, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Api.Controllers.Auth.CadastroController", "rp": "TaskManager.Api_CadastroController.html", "cl": 27, "ucl": 0, "cal": 27, "tl": 59, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Api.Controllers.Auth.Login.LoginController", "rp": "TaskManager.Api_LoginController.html", "cl": 27, "ucl": 0, "cal": 27, "tl": 58, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Api.Controllers.Task.TaskController", "rp": "TaskManager.Api_TaskController.html", "cl": 88, "ucl": 55, "cal": 143, "tl": 246, "cb": 24, "tb": 40, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Api.Extensions.ClaimsPrincipalExtensions", "rp": "TaskManager.Api_ClaimsPrincipalExtensions.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 19, "cb": 5, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Api.Controllers.Task.TaskController", "rp": "TaskManager.Api_TaskController.html", "cl": 143, "ucl": 0, "cal": 143, "tl": 246, "cb": 40, "tb": 40, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Api.Extensions.ClaimsPrincipalExtensions", "rp": "TaskManager.Api_ClaimsPrincipalExtensions.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 19, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "TaskManager.Application",
@@ -226,25 +225,25 @@ var assemblies = [
       { "name": "TaskManager.Application.Dtos.Auth.LoginUsuarioRequest", "rp": "TaskManager.Application_LoginUsuarioRequest.html", "cl": 2, "ucl": 0, "cal": 2, "tl": 7, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.Dtos.TaskDto.CreateTaskDto", "rp": "TaskManager.Application_CreateTaskDto.html", "cl": 4, "ucl": 0, "cal": 4, "tl": 9, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.Dtos.TaskDto.GetTaskDto", "rp": "TaskManager.Application_GetTaskDto.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 11, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Application.Dtos.TaskDto.UpdatePriorityDto", "rp": "TaskManager.Application_UpdatePriorityDto.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 6, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Application.Dtos.TaskDto.UpdateStatusTaskDto", "rp": "TaskManager.Application_UpdateStatusTaskDto.html", "cl": 0, "ucl": 1, "cal": 1, "tl": 6, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Application.Dtos.TaskDto.UpdatePriorityDto", "rp": "TaskManager.Application_UpdatePriorityDto.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 6, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Application.Dtos.TaskDto.UpdateStatusTaskDto", "rp": "TaskManager.Application_UpdateStatusTaskDto.html", "cl": 1, "ucl": 0, "cal": 1, "tl": 6, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.Profiles.CadastroProfile", "rp": "TaskManager.Application_CadastroProfile.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 16, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.Profiles.TaskProfile", "rp": "TaskManager.Application_TaskProfile.html", "cl": 14, "ucl": 0, "cal": 14, "tl": 24, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Application.Services.TaskService", "rp": "TaskManager.Application_TaskService.html", "cl": 21, "ucl": 3, "cal": 24, "tl": 49, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Application.Services.TaskService", "rp": "TaskManager.Application_TaskService.html", "cl": 24, "ucl": 0, "cal": 24, "tl": 49, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.UseCase.Auth.Cadastro.CadastroUseCase", "rp": "TaskManager.Application_CadastroUseCase.html", "cl": 38, "ucl": 0, "cal": 38, "tl": 76, "cb": 6, "tb": 6, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.UseCase.Auth.Login.LoginUseCase", "rp": "TaskManager.Application_LoginUseCase.html", "cl": 37, "ucl": 0, "cal": 37, "tl": 71, "cb": 8, "tb": 8, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.UseCase.Tasks.UseCases.CreateTaskUseCase", "rp": "TaskManager.Application_CreateTaskUseCase.html", "cl": 33, "ucl": 0, "cal": 33, "tl": 72, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Application.UseCase.Tasks.UseCases.DeleteTaskUseCase", "rp": "TaskManager.Application_DeleteTaskUseCase.html", "cl": 0, "ucl": 18, "cal": 18, "tl": 43, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Application.UseCase.Tasks.UseCases.DeleteTaskUseCase", "rp": "TaskManager.Application_DeleteTaskUseCase.html", "cl": 18, "ucl": 0, "cal": 18, "tl": 43, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.UseCase.Tasks.UseCases.GetAllTasksUseCase", "rp": "TaskManager.Application_GetAllTasksUseCase.html", "cl": 23, "ucl": 0, "cal": 23, "tl": 51, "cb": 4, "tb": 4, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.UseCase.Tasks.UseCases.GetTaskByIdUseCase", "rp": "TaskManager.Application_GetTaskByIdUseCase.html", "cl": 22, "ucl": 0, "cal": 22, "tl": 49, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Application.UseCase.Tasks.UseCases.UpdatePriorityUseCase", "rp": "TaskManager.Application_UpdatePriorityUseCase.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 68, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Application.UseCase.Tasks.UseCases.UpdateStatusTaskUseCase", "rp": "TaskManager.Application_UpdateStatusTaskUseCase.html", "cl": 0, "ucl": 32, "cal": 32, "tl": 69, "cb": 0, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Application.UseCase.Tasks.UseCases.UpdatePriorityUseCase", "rp": "TaskManager.Application_UpdatePriorityUseCase.html", "cl": 32, "ucl": 0, "cal": 32, "tl": 68, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Application.UseCase.Tasks.UseCases.UpdateStatusTaskUseCase", "rp": "TaskManager.Application_UpdateStatusTaskUseCase.html", "cl": 32, "ucl": 0, "cal": 32, "tl": 69, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.UseCase.Tasks.UseCases.UpdateTaskUseCase", "rp": "TaskManager.Application_UpdateTaskUseCase.html", "cl": 34, "ucl": 0, "cal": 34, "tl": 73, "cb": 2, "tb": 2, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.Validator.Auth.CadastroValidator", "rp": "TaskManager.Application_CadastroValidator.html", "cl": 17, "ucl": 0, "cal": 17, "tl": 27, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.Validator.Auth.LoginValidator", "rp": "TaskManager.Application_LoginValidator.html", "cl": 9, "ucl": 0, "cal": 9, "tl": 18, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Application.Validator.TaskV.CreateTaskValidator", "rp": "TaskManager.Application_CreateTaskValidator.html", "cl": 25, "ucl": 0, "cal": 25, "tl": 40, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Application.Validator.TaskV.UpdatePriorityValidator", "rp": "TaskManager.Application_UpdatePriorityValidator.html", "cl": 0, "ucl": 11, "cal": 11, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Application.Validator.TaskV.UpdateStatusValidator", "rp": "TaskManager.Application_UpdateStatusValidator.html", "cl": 0, "ucl": 11, "cal": 11, "tl": 20, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Application.Validator.TaskV.UpdatePriorityValidator", "rp": "TaskManager.Application_UpdatePriorityValidator.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 21, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Application.Validator.TaskV.UpdateStatusValidator", "rp": "TaskManager.Application_UpdateStatusValidator.html", "cl": 11, "ucl": 0, "cal": 11, "tl": 20, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
   {
     "name": "TaskManager.Domain",
@@ -259,41 +258,19 @@ var assemblies = [
       { "name": "TaskManager.Infrastructure.Data.Mappings.TaskMap", "rp": "TaskManager.Infrastructure_TaskMap.html", "cl": 24, "ucl": 0, "cal": 24, "tl": 41, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Infrastructure.Data.Mappings.UsuarioMap", "rp": "TaskManager.Infrastructure_UsuarioMap.html", "cl": 12, "ucl": 0, "cal": 12, "tl": 26, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Infrastructure.Data.Repositories.Auth.UsuarioRepository", "rp": "TaskManager.Infrastructure_UsuarioRepository.html", "cl": 19, "ucl": 0, "cal": 19, "tl": 38, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Infrastructure.Data.Repositories.TaskR.TaskRepository", "rp": "TaskManager.Infrastructure_TaskRepository.html", "cl": 28, "ucl": 5, "cal": 33, "tl": 62, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
+      { "name": "TaskManager.Infrastructure.Data.Repositories.TaskR.TaskRepository", "rp": "TaskManager.Infrastructure_TaskRepository.html", "cl": 33, "ucl": 0, "cal": 33, "tl": 62, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
       { "name": "TaskManager.Infrastructure.Data.TaskManagerContext", "rp": "TaskManager.Infrastructure_TaskManagerContext.html", "cl": 8, "ucl": 0, "cal": 8, "tl": 20, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Infrastructure.Migrations.AlteracaoColunaPriority", "rp": "TaskManager.Infrastructure_AlteracaoColunaPriority.html", "cl": 0, "ucl": 115, "cal": 115, "tl": 159, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Infrastructure.Migrations.AlteracaoColunaStatusPriority", "rp": "TaskManager.Infrastructure_AlteracaoColunaStatusPriority.html", "cl": 0, "ucl": 137, "cal": 137, "tl": 183, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Infrastructure.Migrations.AteracaoNaTabelaTarefas", "rp": "TaskManager.Infrastructure_AteracaoNaTabelaTarefas.html", "cl": 0, "ucl": 128, "cal": 128, "tl": 176, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Infrastructure.Migrations.AteracaoTabelaTarefas2", "rp": "TaskManager.Infrastructure_AteracaoTabelaTarefas2.html", "cl": 0, "ucl": 102, "cal": 102, "tl": 147, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Infrastructure.Migrations.CriacaoDaTabelaUsuario", "rp": "TaskManager.Infrastructure_CriacaoDaTabelaUsuario.html", "cl": 0, "ucl": 52, "cal": 52, "tl": 94, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Infrastructure.Migrations.CriaçaoDeRelacionamentoTarefasUsuario", "rp": "TaskManager.Infrastructure_CriaçaoDeRelacionamentoTarefasUsuario.html", "cl": 0, "ucl": 124, "cal": 124, "tl": 174, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Infrastructure.Migrations.CriandoTabelaDeTarefas", "rp": "TaskManager.Infrastructure_CriandoTabelaDeTarefas.html", "cl": 0, "ucl": 103, "cal": 103, "tl": 150, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
-      { "name": "TaskManager.Infrastructure.Migrations.TaskManagerContextModelSnapshot", "rp": "TaskManager.Infrastructure_TaskManagerContextModelSnapshot.html", "cl": 0, "ucl": 89, "cal": 89, "tl": 114, "cb": 0, "tb": 0, "cm": 0, "fcm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "mfch": [], "hc": [], "metrics": { } },
     ]},
 ];
 
-var metrics = [{ "name": "Crap Score", "abbreviation": "crp", "explanationUrl": "https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" }, { "name": "Cyclomatic complexity", "abbreviation": "cc", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" }, { "name": "Line coverage", "abbreviation": "cov", "explanationUrl": "https://en.wikipedia.org/wiki/Code_coverage" }, { "name": "Branch coverage", "abbreviation": "bcov", "explanationUrl": "https://en.wikipedia.org/wiki/Code_coverage" }];
+var metrics = [{ "name": "Cyclomatic complexity", "abbreviation": "cc", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" }, { "name": "NPath complexity", "abbreviation": "npth", "explanationUrl": "https://modess.io/npath-complexity-cyclomatic-complexity-explained" }, { "name": "Sequence coverage", "abbreviation": "seq", "explanationUrl": "https://en.wikipedia.org/wiki/Code_coverage" }, { "name": "Branch coverage", "abbreviation": "bcov", "explanationUrl": "https://en.wikipedia.org/wiki/Code_coverage" }];
 
 var historicCoverageExecutionTimes = [];
 
 var riskHotspotMetrics = [
-      { "name": "Crap Score", "explanationUrl": "https://googletesting.blogspot.de/2011/02/this-code-is-crap.html" },
-      { "name": "Cyclomatic complexity", "explanationUrl": "https://en.wikipedia.org/wiki/Cyclomatic_complexity" },
 ];
 
 var riskHotspots = [
-  {
-    "assembly": "TaskManager.Api", "class": "TaskManager.Api.Controllers.Task.TaskController", "reportPath": "TaskManager.Api_TaskController.html", "methodName": "UpdatePriority()", "methodShortName": "UpdatePriority()", "fileIndex": 0, "line": 194,
-    "metrics": [
-      { "value": 42, "exceeded": true },
-      { "value": 6, "exceeded": false },
-    ]},
-  {
-    "assembly": "TaskManager.Api", "class": "TaskManager.Api.Controllers.Task.TaskController", "reportPath": "TaskManager.Api_TaskController.html", "methodName": "UpdateStatus()", "methodShortName": "UpdateStatus()", "fileIndex": 0, "line": 161,
-    "metrics": [
-      { "value": 42, "exceeded": true },
-      { "value": 6, "exceeded": false },
-    ]},
 ];
 
 var branchCoverageAvailable = true;

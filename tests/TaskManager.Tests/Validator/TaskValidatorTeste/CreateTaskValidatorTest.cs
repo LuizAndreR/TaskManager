@@ -4,11 +4,11 @@ using FluentValidation.TestHelper;
 
 namespace TaskManager.Tests.Validator;
 
-public class TaskValidatorTests
+public class CreateTaskValidatorTest
 {
     private readonly CreateTaskValidator _validator;
 
-    public TaskValidatorTests()
+    public CreateTaskValidatorTest()
     {
         _validator = new CreateTaskValidator();
     }

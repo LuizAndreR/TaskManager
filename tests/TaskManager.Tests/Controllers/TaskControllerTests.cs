@@ -310,4 +310,203 @@ public class TaskControllerTests
         Assert.Equal(401, unauthorizedResult.StatusCode);
     }
 
+    
+    // Testes para EndPoint updatestatus 
+    
+    [Fact]
+    public async Task UpdateStatus_DeveRetornarOk_QuandoAtualizacaoForBemSucedida()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var dto = new UpdateStatusTaskDto { Status = "Concluido" };
+
+        serviceMock
+            .Setup(s => s.UpadteStatusAsync(dto, 1, 1))
+            .ReturnsAsync(Result.Ok());
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.UpdateStatus(dto, 1);
+
+        var okResult = Assert.IsType<OkObjectResult>(resultado);
+        Assert.Equal(200, okResult.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdateStatus_DeveRetornarUnauthorized_QuandoUsuarioNaoAutenticado()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var dto = new UpdateStatusTaskDto { Status = "Concluido" };
+
+        var controller = CriarControllerComUsuario(Result.Fail<int>("Usuário não autenticado"), serviceMock);
+
+        var resultado = await controller.UpdateStatus(dto, 1);
+
+        var unauthorizedResult = Assert.IsType<UnauthorizedResult>(resultado);
+        Assert.Equal(401, unauthorizedResult.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdateStatus_DeveRetornarBadRequest_QuandoFalhaDeValidacao()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var dto = new UpdateStatusTaskDto { Status = "" };
+
+        serviceMock
+            .Setup(s => s.UpadteStatusAsync(dto, 1, 1))
+            .ReturnsAsync(Result.Fail("validacao falhou"));
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.UpdateStatus(dto, 1);
+
+        var badRequest = Assert.IsType<BadRequestObjectResult>(resultado);
+        Assert.Equal(400, badRequest.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdateStatus_DeveRetornarInternalServerError_QuandoErroInesperado()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var dto = new UpdateStatusTaskDto { Status = "EmAndamento" };
+
+        serviceMock
+            .Setup(s => s.UpadteStatusAsync(dto, 1, 1))
+            .ReturnsAsync(Result.Fail("Erro inesperado no banco de dados"));
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.UpdateStatus(dto, 1);
+
+        var objectResult = Assert.IsType<ObjectResult>(resultado);
+        Assert.Equal(500, objectResult.StatusCode);
+        Assert.Equal("Erro inesperado no banco de dados", objectResult.Value);
+    }
+    
+    // Testes para EndPoint updatepriority
+    
+    [Fact]
+    public async Task UpdatePriority_DeveRetornarOk_QuandoAtualizacaoForBemSucedida()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var dto = new UpdatePriorityDto { Priority = "Alta" };
+
+        serviceMock
+            .Setup(s => s.UpdatePriorityAsync(dto, 1, 1))
+            .ReturnsAsync(Result.Ok());
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.UpdatePriority(dto, 1);
+
+        var okResult = Assert.IsType<OkObjectResult>(resultado);
+        Assert.Equal(200, okResult.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdatePriority_DeveRetornarUnauthorized_QuandoUsuarioNaoAutenticado()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var dto = new UpdatePriorityDto { Priority = "Alta" };
+
+        var controller = CriarControllerComUsuario(Result.Fail<int>("Usuário não autenticado"), serviceMock);
+
+        var resultado = await controller.UpdatePriority(dto, 1);
+
+        var unauthorizedResult = Assert.IsType<UnauthorizedResult>(resultado);
+        Assert.Equal(401, unauthorizedResult.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdatePriority_DeveRetornarBadRequest_QuandoFalhaDeValidacao()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var dto = new UpdatePriorityDto { Priority = "" };
+
+        serviceMock
+            .Setup(s => s.UpdatePriorityAsync(dto, 1, 1))
+            .ReturnsAsync(Result.Fail("validacao falhou"));
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.UpdatePriority(dto, 1);
+
+        var badRequest = Assert.IsType<BadRequestObjectResult>(resultado);
+        Assert.Equal(400, badRequest.StatusCode);
+    }
+
+    [Fact]
+    public async Task UpdatePriority_DeveRetornarInternalServerError_QuandoErroInesperado()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        var dto = new UpdatePriorityDto { Priority = "Baixa" };
+
+        serviceMock
+            .Setup(s => s.UpdatePriorityAsync(dto, 1, 1))
+            .ReturnsAsync(Result.Fail("Erro inesperado no banco de dados"));
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.UpdatePriority(dto, 1);
+
+        var objectResult = Assert.IsType<ObjectResult>(resultado);
+        Assert.Equal(500, objectResult.StatusCode);
+        Assert.Equal("Erro inesperado no banco de dados", objectResult.Value);
+    }
+
+    // Testes para EndPoint delete
+    
+    [Fact]
+    public async Task Delete_DeveRetornarNoContent_QuandoDelecaoForBemSucedida()
+    {
+        var serviceMock = new Mock<ITaskService>();
+        serviceMock
+            .Setup(s => s.DeleteAsync(1, 1))
+            .ReturnsAsync(Result.Ok());
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        var resultado = await controller.Delete(1);
+
+        var noContentResult = Assert.IsType<NoContentResult>(resultado);
+        Assert.Equal(204, noContentResult.StatusCode);
+    }
+
+    [Fact]
+    public async Task Delete_DeveRetornarUnauthorized_QuandoUsuarioNaoAutenticado()
+    {
+        var serviceMock = new Mock<ITaskService>();
+
+        var controller = CriarControllerComUsuario(Result.Fail<int>("Usuário não autenticado"), serviceMock);
+
+        var resultado = await controller.Delete(1);
+
+        var unauthorizedResult = Assert.IsType<UnauthorizedResult>(resultado);
+        Assert.Equal(401, unauthorizedResult.StatusCode);
+    }
+
+    [Fact]
+    public async Task Delete_DeveRetornarInternalServerError_QuandoErroInesperado()
+    {
+        // Arrange
+        var serviceMock = new Mock<ITaskService>();
+        serviceMock
+            .Setup(s => s.DeleteAsync(1, 1))
+            .ReturnsAsync(Result.Fail("Erro inesperado no banco de dados"));
+
+        var controller = CriarControllerComUsuario(Result.Ok(1), serviceMock);
+
+        // Act
+        var resultado = await controller.Delete(1);
+
+        // Assert
+        var objectResult = Assert.IsType<ObjectResult>(resultado);
+        Assert.Equal(500, objectResult.StatusCode);
+
+        // Aqui acessamos as mensagens diretamente
+        var mensagens = ((IEnumerable<IError>)objectResult.Value)
+            .Select(e => e.Message)
+            .ToList();
+
+        Assert.Contains("Erro inesperado no banco de dados", mensagens);
+    }
 }

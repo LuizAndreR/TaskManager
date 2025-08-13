@@ -153,4 +153,39 @@ public class TaskRepositoryTest
         Assert.Equal("Concluída", tarefaAtualizada.Status);
     }
 
+    [Fact]
+    public async Task DeleteTask_DeveExcluirTarefa()
+    {
+        using var context = new TaskManagerContext(_options);
+        var repository = new TaskRepository(context, _logger.Object);
+        
+        var usuario = new Usuario
+        {
+            Id = 3,
+            Nome = "Usuário 3",
+            Email = "usuario3@teste.com",
+            SenhaHash = "senha789"
+        };
+
+        var tarefa = new TaskE
+        {
+            Id = 3,
+            Title = "Título Antigo",
+            Descriptions = "Antiga descrição",
+            Priority = "Baixa",
+            Status = "Pendente",
+            UsuarioId = usuario.Id,
+            Usuario = usuario
+        };
+        
+        
+        context.Usuarios.Add(usuario);
+        context.Tarefas.Add(tarefa);
+        await context.SaveChangesAsync();
+
+        await repository.DeleteTask(tarefa, 3);
+        
+        var tarefaAtualizada = await context.Tarefas.FindAsync(3);
+        Assert.Null(tarefaAtualizada);
+    }
 }
