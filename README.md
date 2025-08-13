@@ -56,16 +56,17 @@
 
 ## ⚡ Endpoints Principais
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| POST   | `/auth/login` | Autenticação do usuário e geração de token JWT |
-| POST   | `/tasks` | Cria uma nova tarefa |
-| GET    | `/tasks` | Lista todas as tarefas do usuário |
-| GET    | `/tasks/{id}` | Consulta uma tarefa específica |
-| PUT    | `/tasks/{id}` | Atualiza dados de uma tarefa |
+| Método | Endpoint                     | Descrição |
+|--------|------------------------------|-----------|
+| POST   | `/auth/register`             | Criação de um novo usuário
+| POST   | `/auth/login`                | Autenticação do usuário e geração de token JWT |
+| POST   | `/tasks/create`              | Cria uma nova tarefa |
+| GET    | `/tasks/getall`              | Lista todas as tarefas do usuário |
+| GET    | `/tasks/getid/{id}`          | Consulta uma tarefa específica |
+| PUT    | `/tasks/update/{id}`         | Atualiza dados de uma tarefa |
 | PATCH  | `/tasks/updatepriority/{id}` | Atualiza a prioridade de uma tarefa |
-| PATCH  | `/tasks/updatestatus/{id}` | Atualiza o status de uma tarefa |
-| DELETE | `/tasks/{id}` | Deleta uma tarefa |
+| PATCH  | `/tasks/updatestatus/{id}`   | Atualiza o status de uma tarefa |
+| DELETE | `/tasks/delete/{id}`         | Deleta uma tarefa |
 
 ---
 
