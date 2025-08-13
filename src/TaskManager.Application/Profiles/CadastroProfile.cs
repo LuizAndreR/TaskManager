@@ -10,6 +10,7 @@ public class CadastroProfile : Profile
     {
         CreateMap<CadastroUsuarioRequest, Usuario>()
             .ForMember(dest => dest.SenhaHash, opt => opt.Ignore())
-            .ForMember(dest => dest.Id, opt => opt.Ignore());
+            .ForMember(dest => dest.Id, opt => opt.Ignore())
+            .ForMember(dest => dest.Tarefas, opt => opt.Ignore());
     }
 }

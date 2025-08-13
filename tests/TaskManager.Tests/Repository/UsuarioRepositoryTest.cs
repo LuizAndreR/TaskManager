@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using TaskManager.Domain.Entities;
-using TaskManager.Infrastructure.Data.Context;
+using TaskManager.Infrastructure.Data;
 using TaskManager.Infrastructure.Data.Repositories.Auth;
 
 namespace TaskManager.Tests.Repository;

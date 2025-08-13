@@ -2,5 +2,5 @@
 
 public interface IJwtGenerator
 {
-    public string Generate(string email);
+    public string Generate(string email, int id);
 }

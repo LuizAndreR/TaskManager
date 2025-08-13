@@ -56,11 +56,13 @@ public class CadastroUseCase : ICadastroUseCase
             var usuario = _mapper.Map<Usuario>(request);
             usuario.SenhaHash = senhaHash;
 
-            await _repository.Salve(usuario);
+            usuario = await _repository.Salve(usuario);
 
             _logger.LogInformation("Cadastro concluído com sucesso para o e-mail: {Email}", request.Email);
 
-            var token = _tokenService.Generate(usuario.Email);
+            var token = _tokenService.Generate(usuario.Email, usuario.Id);
+
+            _logger.LogInformation("Token gerado com sucesso para o e-mail {Email}", usuario.Email);
             return Result.Ok(token);
         }
         catch (Exception ex)
